@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Get colleges and details in India
+  version: 1.0.0
+  description: The api is used to get details around the colleges and courses offered in India and the eligibility criteria etc
+
+paths:
+  /getmodelavailability:
+    post:
+      summary: Get the availability status of models
+      description: check for the endpoint availability and get the response
+      operationId: getstatus
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                db:
+                  type: string
+                  description: Name of the model
+              required:
+                - db
+      responses:
+        '200':
+          description: Successfully retrieved the status of the model
+          content:
+            application/json:
+              schema:
+                type: string
+         '400':
+          description: Bad request. The model is missing or invalid.
+
+  /getInfo:
+    post:
+      summary: Execute a prompt and get response
+      description: Send a prompt to the model endpoint and get the response at a time
+      operationId: querydatabase
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                  description: The question you would like to get answers
+              required:
+                - prompt
+      responses:
+        '200':
+          description: Query executed successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                description: get the response from the model
+        '400':
+          description: Bad request. Prompt is missing
+        '403':
+          description: Forbidden. User does not have access to the specified information
